@@ -1,5 +1,5 @@
 # Lab_Suite
-Tool for speeding networking labs
+Tool for speeding up networking labs
 
 ## Do not use this tool in production. Modifications would be necessary in order for it to be considered secure
 
