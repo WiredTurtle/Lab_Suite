@@ -1,10 +1,10 @@
-from docx import Document
 import time
 import sys
 import os
-import paramiko
 from threading import Thread
-
+import configparser
+import paramiko
+from docx import Document
 '''
 This is the Machine Class
 '''
