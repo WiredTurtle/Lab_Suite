@@ -18,9 +18,11 @@ class Machine:
 	with the creation of a hostname instance variable and lists for rawConfig,
 	cleanedConfig, and ip_route.
 	'''
-	def __init__(self, ip):
+	def __init__(self, ip, username, password):
 		self.ip = ip
 		self.hostname = "S1"
+		self.username = username
+		self.password = password
 		self.rawConfig = []
 		self.cleanedConfig = []
 		self.ip_route = []
@@ -73,11 +75,11 @@ class Machine:
 		#Should I seperate these?
 
 #-------------------------------------------
-def populateMachineList(list_name, machines):
+def populateMachineList(list_name, machines, username, password):
 	ip_list = open(list_name, 'r')
 	#Create and put the machine objects in a list.
 	for ip in ip_list:
-		machines.append(Machine(ip))
+		machines.append(Machine(ip, username, password))
 
 def startThreads(machines, threads):
 	for i in machines:
@@ -98,10 +100,43 @@ def write_lab(machines):
 
 	document.save('Lab_Write_Up.docx')
 
+'''
+Thanks for the code Chris
+'''
+def get_config_info():
+
+    # get the path to the config file from the first parameter
+    config_file_path = ''
+
+    if len(sys.argv) > 1:
+        config_file_path = sys.argv[1]
+    else:
+        print('Usage: %s /path/to/config.ini' % (sys.argv[0],))
+        sys.exit()
+
+    config = configparser.ConfigParser()
+
+    # parse the content of the config file
+    with open(config_file_path, 'r') as f:
+        config.read_file(f)
+
+    username = config['Lab_Suite']['username']
+    password = config['Lab_Suite']['password']
+
+    return username, password
+
+
 def Main():
+    username = ''
+    password = ''
+    try:
+        username, password = get_config_info()
+    finally:
+        print("Make sure you have the proper config information")
+        
 	machines = []
 	threads = []
-	populateMachineList('ips.txt', machines)
+	populateMachineList('ips.txt', machines, username, password)
 	os.mkdir('Cleaned_Configs')
 	os.chdir('Cleaned_Configs')
 	startThreads(machines, threads)
