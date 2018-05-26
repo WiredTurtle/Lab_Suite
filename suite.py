@@ -40,7 +40,7 @@ class Machine:
 		#changed though?
 		ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 		try:
-			ssh.connect(self.ip, port=22, username='admin', password='CiscoCisco123', allow_agent=False, look_for_keys=False)
+			ssh.connect(self.ip, port=22, username=self.username, password=self.password, allow_agent=False, look_for_keys=False)
 			stdin, stdout, stderr = ssh.exec_command('show run')
 			self.rawConfig = stdout.readlines()
 			#stdin, stdout, stderr = ssh.exec_command('ip route')
