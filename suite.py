@@ -134,16 +134,16 @@ def Main():
     finally:
         print("Make sure you have the proper config information")
         
-	machines = []
-	threads = []
-	populateMachineList('ips.txt', machines, username, password)
-	os.mkdir('Cleaned_Configs')
-	os.chdir('Cleaned_Configs')
-	startThreads(machines, threads)
-	os.chdir('..')
-	#Consider having a method here for writting the files to disk.
+    machines = []
+    threads = []
+    populateMachineList('ips.txt', machines, username, password)
+    os.mkdir('Cleaned_Configs')
+    os.chdir('Cleaned_Configs')
+    startThreads(machines, threads)
+    os.chdir('..')
+    #Consider having a method here for writting the files to disk.
 
-	write_lab(machines)
+    write_lab(machines)
 
 
 #Necessary?
